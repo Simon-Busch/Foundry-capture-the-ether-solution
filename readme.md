@@ -1,12 +1,12 @@
 # Capture the ether
 
 ## Warmup
-- [ ] Deploy a contract
-- [ ] Call me
-- [ ] Choose a nickname
+- [x] Deploy a contract
+- [x] Call me
+- [x] Choose a nickname
 
 ## Lotteries
-- [ ] Guess the number
+- [x] Guess the number
 - [ ] Guess the secret number
 - [ ] Guess the random number
 - [ ] Predict the future
