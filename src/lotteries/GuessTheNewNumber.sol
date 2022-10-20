@@ -1,7 +1,6 @@
 pragma solidity ^0.8.13;
 
 contract GuessTheNewNumberChallenge {
-
     //function GuessTheNewNumberChallenge() public payable {
     constructor() payable {
         require(msg.value == 1 ether);
@@ -15,11 +14,15 @@ contract GuessTheNewNumberChallenge {
         require(msg.value == 1 ether);
         //uint8 answer = uint8(keccak256(block.blockhash(block.number - 1), now));
         uint answer = uint8(
-           uint256(
-             keccak256(abi.encodePacked( blockhash(block.number - 1), block.timestamp)
-             )
-           )
-         );
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        blockhash(block.number - 1),
+                        block.timestamp
+                    )
+                )
+            )
+        );
 
         if (n == answer) {
             //msg.sender.transfer(2 ether);
