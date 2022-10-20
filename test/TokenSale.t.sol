@@ -26,7 +26,7 @@ contract TokenSaleTest is Test {
          *    Attack     *
          *************** */
         /*
-         * If we decompose this contract :
+         * We can absolute overflow here
          */
         uint256 withdrawn;
         uint256 hackedBalance;

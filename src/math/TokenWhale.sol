@@ -1,4 +1,4 @@
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.14;
 
 contract TokenWhaleChallenge {
     address player;
@@ -24,8 +24,11 @@ contract TokenWhaleChallenge {
     event Transfer(address indexed from, address indexed to, uint256 value);
 
     function _transfer(address to, uint256 value) internal {
-        balanceOf[msg.sender] -= value;
-        balanceOf[to] += value;
+        //!! added to force wrong behavior. Fixed from ^0.8.0
+        unchecked {
+            balanceOf[msg.sender] -= value;
+            balanceOf[to] += value;
+        }
 
         emit Transfer(msg.sender, to, value);
     }
@@ -33,23 +36,36 @@ contract TokenWhaleChallenge {
     function transfer(address to, uint256 value) public {
         require(balanceOf[msg.sender] >= value, "Not enough balance");
         require(balanceOf[to] + value >= balanceOf[to], "Overflow to");
-
-        _transfer(to, value);
+        //!! added to force wrong behavior. Fixed from ^0.8.0
+        unchecked {
+            _transfer(to, value);
+        }
     }
 
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 
     function approve(address spender, uint256 value) public {
         allowance[msg.sender][spender] = value;
         emit Approval(msg.sender, spender, value);
     }
 
-    function transferFrom(address from, address to, uint256 value) public {
-        require(balanceOf[from] >= value);
-        require(balanceOf[to] + value >= balanceOf[to]);
-        require(allowance[from][msg.sender] >= value);
+    function transferFrom(
+        address from,
+        address to,
+        uint256 value
+    ) public {
+        require(balanceOf[from] >= value, "1");
+        require(balanceOf[to] + value >= balanceOf[to], "2");
+        require(allowance[from][msg.sender] >= value, "3");
 
-        allowance[from][msg.sender] -= value;
-        _transfer(to, value);
+        //!! added to force wrong behavior. Fixed from ^0.8.0
+        unchecked {
+            allowance[from][msg.sender] -= value;
+            _transfer(to, value);
+        }
     }
 }

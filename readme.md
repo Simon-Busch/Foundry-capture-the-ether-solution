@@ -15,7 +15,7 @@
 
 ## Math
 - [x] Token sale
-- [ ] Token whale
+- [x] Token whale
 - [ ] Retirement fund
 - [ ] Mapping
 - [ ] Donation
