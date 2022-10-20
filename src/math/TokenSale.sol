@@ -1,5 +1,4 @@
-pragma solidity 0.7.6;
-// note we need an older compiler as the latest has fixed the over/under flow issues
+pragma solidity 0.8.14;
 
 contract TokenSaleChallenge {
     mapping(address => uint256) public balanceOf;
@@ -14,17 +13,23 @@ contract TokenSaleChallenge {
     }
 
     function buy(uint256 numTokens) external payable {
-        require(msg.value == numTokens * PRICE_PER_TOKEN, "math error");
-
-        balanceOf[msg.sender] += numTokens;
+      //!! added unchecked to allow overflow/underflow
+        unchecked {
+            require(msg.value == numTokens * PRICE_PER_TOKEN, "math error");
+            balanceOf[msg.sender] += numTokens;
+        }
     }
 
     function sell(uint256 numTokens) external {
-        require(balanceOf[msg.sender] >= numTokens);
+      //!! added unchecked to allow overflow/underflow
+        unchecked {
+            require(balanceOf[msg.sender] >= numTokens, "not enough balance");
+            // note added unchecked to allow the over/under flow issues
 
-        balanceOf[msg.sender] -= numTokens;
-        //msg.sender.transfer(numTokens * PRICE_PER_TOKEN);
-        address payable toAddress=payable(msg.sender);
-        toAddress.transfer(numTokens * PRICE_PER_TOKEN);
+            balanceOf[msg.sender] -= numTokens;
+            //msg.sender.transfer(numTokens * PRICE_PER_TOKEN);
+            address payable toAddress = payable(msg.sender);
+            toAddress.transfer(numTokens * PRICE_PER_TOKEN);
+        }
     }
 }

@@ -11,10 +11,10 @@
 - [x] Guess the random number
 - [x] Guess the new number
 - [x] Predict the future
-- [ ] Predict the block hash
+- [x] Predict the block hash
 
 ## Math
-- [ ] Token sale
+- [x] Token sale
 - [ ] Token whale
 - [ ] Retirement fund
 - [ ] Mapping
