@@ -7,8 +7,8 @@
 
 ## Lotteries
 - [x] Guess the number
-- [ ] Guess the secret number
-- [ ] Guess the random number
+- [x] Guess the secret number
+- [x] Guess the random number
 - [ ] Predict the future
 - [ ] Predict the block hash
 

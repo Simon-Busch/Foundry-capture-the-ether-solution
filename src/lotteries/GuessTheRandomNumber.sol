@@ -5,15 +5,18 @@ contract GuessTheRandomNumberChallenge {
     uint8 answer;
 
     //function GuessTheRandomNumberChallenge() public payable {
-     constructor() payable {
+    constructor() payable {
         require(msg.value == 1 ether);
 
         answer = uint8(
-          uint256(  
-            keccak256(abi.encodePacked(
-              blockhash(block.number - 1), block.timestamp) 
+            uint256(
+                keccak256(
+                    abi.encodePacked(
+                        blockhash(block.number - 1),
+                        block.timestamp
+                    )
+                )
             )
-          )
         );
     }
 
@@ -25,8 +28,8 @@ contract GuessTheRandomNumberChallenge {
         require(msg.value == 1 ether);
 
         if (n == answer) {
-             address payable toSendTo = payable(msg.sender);
-             toSendTo.transfer(2 ether);
+            address payable toSendTo = payable(msg.sender);
+            toSendTo.transfer(2 ether);
             //msg.sender.transfer(2 ether);
         }
     }
