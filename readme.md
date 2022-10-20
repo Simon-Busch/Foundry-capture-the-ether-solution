@@ -9,8 +9,8 @@
 - [x] Guess the number
 - [x] Guess the secret number
 - [x] Guess the random number
-- [ ] Guess the new number
-- [ ] Predict the future
+- [x] Guess the new number
+- [x] Predict the future
 - [ ] Predict the block hash
 
 ## Math
