@@ -16,7 +16,7 @@
 ## Math
 - [x] Token sale
 - [x] Token whale
-- [ ] Retirement fund
+- [x] Retirement fund
 - [ ] Mapping
 - [ ] Donation
 - [ ] Fifty years

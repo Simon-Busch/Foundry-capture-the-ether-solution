@@ -58,9 +58,9 @@ contract TokenWhaleChallenge {
         address to,
         uint256 value
     ) public {
-        require(balanceOf[from] >= value, "1");
-        require(balanceOf[to] + value >= balanceOf[to], "2");
-        require(allowance[from][msg.sender] >= value, "3");
+        require(balanceOf[from] >= value);
+        require(balanceOf[to] + value >= balanceOf[to]);
+        require(allowance[from][msg.sender] >= value);
 
         //!! added to force wrong behavior. Fixed from ^0.8.0
         unchecked {

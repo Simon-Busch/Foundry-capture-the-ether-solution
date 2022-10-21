@@ -1,4 +1,4 @@
-pragma solidity ^0.7.6;
+pragma solidity ^0.8.0;
 
 contract RetirementFundChallenge {
     uint256 startBalance;
@@ -19,25 +19,30 @@ contract RetirementFundChallenge {
 
     function withdraw() public {
         require(msg.sender == owner, "only owner");
+        address payable toSendTo = payable(msg.sender);
 
         if (block.timestamp < expiration) {
+            // !! changed to update version msg.sender.transfer(address(this).balance * 9 / 10);
             // early withdrawal incurs a 10% penalty
-            msg.sender.transfer(address(this).balance * 9 / 10);
+            toSendTo.transfer((address(this).balance * 9) / 10);
         } else {
-            msg.sender.transfer(address(this).balance);
+            // msg.sender.transfer(address(this).balance);
+            toSendTo.transfer(address(this).balance);
         }
     }
 
     function collectPenalty() public {
+      unchecked { //!! add it to allow overflow/underflow
         require(msg.sender == beneficiary);
-
+        address payable toSendTo = payable(msg.sender);
         uint256 withdrawn = startBalance - address(this).balance;
 
         // an early withdrawal occurred
         require(withdrawn > 0, "no early withdrawn err");
 
+        // !! changed to update version  msg.sender.transfer(address(this).balance)
         // penalty is what's left
-        msg.sender.transfer(address(this).balance);
+        toSendTo.transfer(address(this).balance);
+      }
     }
-
 }
