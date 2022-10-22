@@ -33,6 +33,11 @@ contract RetirementFundTest is Test {
          * In order to do so we can create a malicious contracat that will call
          * selfdestruct on creation of the contract
          * Then, we can simply call collectPenalty and we would have drained the contract balance;
+         * Here is what will happen in collectPenalty
+         * withdrawn = startBalance – address.balance
+         * withdrawn = 1 ether – 2 ether
+         * withdrawn = -1 ether
+         * !! uint can't be negative, so it underflowws and leaves us with a positive balance
          */
 
         uint256 initialRetirementBalance = address(retirementFund).balance;
