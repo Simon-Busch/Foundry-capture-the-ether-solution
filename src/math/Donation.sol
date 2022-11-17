@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.8.14;
 
 contract DonationChallenge {
     struct Donation {
@@ -9,10 +9,13 @@ contract DonationChallenge {
 
     address public owner;
 
-    function DonationChallenge() public payable {
-        require(msg.value == 1 ether);
+    // function DonationChallenge() public payable {
+    //     require(msg.value == 1 ether);
 
-        owner = msg.sender;
+    //     owner = msg.sender;
+    // }
+    constructor() payable {
+      owner = msg.sender;
     }
 
     function isComplete() public view returns (bool) {
@@ -24,8 +27,8 @@ contract DonationChallenge {
         uint256 scale = 10**18 * 1 ether;
         require(msg.value == etherAmount / scale);
 
-        Donation donation;
-        donation.timestamp = now;
+        Donation memory donation;
+        donation.timestamp = block.timestamp; // !! now before
         donation.etherAmount = etherAmount;
 
         donations.push(donation);
@@ -33,7 +36,8 @@ contract DonationChallenge {
 
     function withdraw() public {
         require(msg.sender == owner);
+        address payable toSendTo = payable(msg.sender);
 
-        msg.sender.transfer(address(this).balance);
+        toSendTo.transfer(address(this).balance);
     }
 }
