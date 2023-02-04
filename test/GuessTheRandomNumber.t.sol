@@ -17,7 +17,9 @@ contract GuessTheRandomNumberTest is Test {
         /****************
          * Factory setup *
          *************** */
-        GuessTheRandomNumberChallenge guessTheRandomNumber = new GuessTheRandomNumberChallenge{value: 1 ether}();
+        GuessTheRandomNumberChallenge guessTheRandomNumber = new GuessTheRandomNumberChallenge{
+                value: 1 ether
+            }();
         vm.startPrank(player);
         address levelAddress = address(guessTheRandomNumber);
         uint256 initialPlayerBalance = player.balance;
@@ -26,13 +28,15 @@ contract GuessTheRandomNumberTest is Test {
          *    Attack     *
          *************** */
         /*
-        * In this level  we have to guess a "random" number. Which is not random actually,
-        * it's set up in the constructor and they assigned to uint8 answer.
-        * This is SLOT0 of our contract storage. Thanks to foundry, we can access easily the
-        * storage with vm.load(address, slot) and convert it to a uint8.
-        */
+         * In this level  we have to guess a "random" number. Which is not random actually,
+         * it's set up in the constructor and they assigned to uint8 answer.
+         * This is SLOT0 of our contract storage. Thanks to foundry, we can access easily the
+         * storage with vm.load(address, slot) and convert it to a uint8.
+         */
         // uint8 answer = guessTheRandomNumber.answer();
-        uint8 answer = uint8( uint256( vm.load(address(guessTheRandomNumber), 0) ) );
+        uint8 answer = uint8(
+            uint256(vm.load(address(guessTheRandomNumber), 0))
+        );
 
         guessTheRandomNumber.guess{value: 1 ether}(answer);
         uint256 finalPlayerBalance = player.balance;

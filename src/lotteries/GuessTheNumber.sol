@@ -9,7 +9,6 @@ contract GuessTheNumberChallenge {
         require(msg.value == 1 ether);
     }
 
-
     function isComplete() public view returns (bool) {
         return address(this).balance == 0;
     }

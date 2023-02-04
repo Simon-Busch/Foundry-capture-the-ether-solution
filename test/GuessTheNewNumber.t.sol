@@ -28,7 +28,7 @@ contract GuessTheNewNumberTest is Test {
          *    Attack     *
          *************** */
         /*
-         * In this level, the answer changes basd on:
+         * In this level, the answer changes based on:
          * block number and block.timestamp.
          * -- 1 --
          * In foundry, we have the helper function vm.roll to set the block height

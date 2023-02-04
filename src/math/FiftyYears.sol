@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
 
 contract FiftyYearsChallenge {
@@ -11,7 +12,7 @@ contract FiftyYearsChallenge {
     address owner;
     // function FiftyYearsChallenge(address player) public payable {
     // }
-    constructor(address player) public payable {
+    constructor(address player) payable {
         require(msg.value == 1 ether);
 
         owner = player;
