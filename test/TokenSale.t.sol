@@ -19,7 +19,6 @@ contract TokenSaleTest is Test {
          *************** */
         TokenSaleChallenge tokenSale = new TokenSaleChallenge{value: 1 ether}();
         vm.startPrank(player);
-        address levelAddress = address(tokenSale);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************

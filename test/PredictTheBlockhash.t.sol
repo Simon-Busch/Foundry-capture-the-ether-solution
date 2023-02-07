@@ -21,7 +21,6 @@ contract PredictTheBlockhashTest is Test {
                 value: 1 ether
             }();
         vm.startPrank(player);
-        address levelAddress = address(predictTheBlockhash);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************

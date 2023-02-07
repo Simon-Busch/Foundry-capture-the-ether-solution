@@ -43,7 +43,6 @@ contract PredictTheFutureTest is Test {
                 value: 1 ether
             }();
         vm.startPrank(player);
-        address levelAddress = address(predictTheFuture);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************

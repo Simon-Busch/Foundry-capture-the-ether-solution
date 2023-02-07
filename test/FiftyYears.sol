@@ -20,7 +20,6 @@ contract FiftyYearsTest is Test {
          *************** */
         FiftyYearsChallenge fiftyYearsChallenge = new FiftyYearsChallenge{value: 1 ether}(player);
         vm.startPrank(player);
-        address payable levelAddress = payable(address(fiftyYearsChallenge));
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************
@@ -29,14 +28,16 @@ contract FiftyYearsTest is Test {
         /*
          * Goal:
          */
-        fiftyYearsChallenge.upsert{value: 1}(666, type(uint256).max - 1 days + 1);
-        fiftyYearsChallenge.upsert{value: 1}(666, 0);
-        fiftyYearsChallenge.withdraw(1);
+        console.log(fiftyYearsChallenge.queue[0]);
+        // fiftyYearsChallenge.upsert{value: 1}(666, type(uint256).max - 1 days + 1);
+        // fiftyYearsChallenge.upsert{value: 1}(666, 0);
+        // fiftyYearsChallenge.withdraw(1);
 
         /*****************
          *Level Submission*
          ***************  */
         bool levelSuccessfullyPassed = fiftyYearsChallenge.isComplete();
+        require(levelSuccessfullyPassed);
         vm.stopPrank();
         // assert(levelSuccessfullyPassed);
     }

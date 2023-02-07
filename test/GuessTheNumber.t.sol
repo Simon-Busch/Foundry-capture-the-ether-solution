@@ -19,7 +19,6 @@ contract GuessTheNumberTest is Test {
          *************** */
         GuessTheNumberChallenge guessTheNumber = new GuessTheNumberChallenge{value: 1 ether}();
         vm.startPrank(player);
-        address levelAddress = address(guessTheNumber);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************

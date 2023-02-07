@@ -29,7 +29,7 @@ contract DonationChallenge {
         require(msg.value == etherAmount / scale);
 
         Donation memory donation;
-        donation.timestamp = block.timestamp; // !! now before
+        donation.timestamp = block.timestamp; // !! "now" before
         donation.etherAmount = etherAmount;
 
         donations.push(donation);

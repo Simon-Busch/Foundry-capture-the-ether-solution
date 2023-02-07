@@ -6,7 +6,7 @@ contract FiftyYearsChallenge {
         uint256 amount;
         uint256 unlockTimestamp;
     }
-    Contribution[] queue;
+    Contribution[] public queue;
     uint256 head;
 
     address owner;

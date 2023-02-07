@@ -21,7 +21,6 @@ contract GuessTheRandomNumberTest is Test {
                 value: 1 ether
             }();
         vm.startPrank(player);
-        address levelAddress = address(guessTheRandomNumber);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************
