@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.14;
+import "forge-std/Test.sol";
 
-contract FiftyYearsChallenge {
+contract FiftyYearsChallenge is Test {
     struct Contribution {
         uint256 amount;
         uint256 unlockTimestamp;
@@ -10,6 +11,7 @@ contract FiftyYearsChallenge {
     uint256 head;
 
     address owner;
+
     // function FiftyYearsChallenge(address player) public payable {
     // }
     constructor(address player) payable {
@@ -28,16 +30,22 @@ contract FiftyYearsChallenge {
         Contribution memory contribution;
         if (index >= head && index < queue.length) {
             // Update existing contribution amount without updating timestamp.
-            contribution = queue[index];
-            contribution.amount += msg.value;
+            unchecked {
+                contribution = queue[index];
+                contribution.amount += msg.value;
+            }
         } else {
             // Append a new contribution. Require that each contribution unlock
             // at least 1 day after the previous one.
-            require(block.timestamp >= queue[queue.length - 1].unlockTimestamp + 1 days);
-
-            contribution.amount = msg.value;
-            contribution.unlockTimestamp = timestamp;
-            queue.push(contribution);
+            unchecked {
+                require(
+                    block.timestamp >=
+                        queue[queue.length - 1].unlockTimestamp + 1 days
+                );
+                contribution.amount = msg.value;
+                contribution.unlockTimestamp = timestamp;
+                queue.push(contribution);
+            }
         }
     }
 

