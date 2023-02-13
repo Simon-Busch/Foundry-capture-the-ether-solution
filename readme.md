@@ -19,7 +19,7 @@
 - [x] Retirement fund
 - [x] Mapping
 - [ ] Donation
-- [ ] Fifty years
+- [x] Fifty years
 
 ## Accouts
 - [ ] Fuzzy identity

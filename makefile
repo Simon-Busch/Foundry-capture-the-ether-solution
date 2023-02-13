@@ -36,3 +36,12 @@ Donation:
 
 FiftyYears:
 	forge test --match-contract FiftyYearsTest -vvvv
+
+FuzzyIdentity:
+	forge test --match-contract FuzzyIdentityTest -vvvv
+
+AccountTakeover:
+	forge test --match-contract AccountTakeoverTest -vvvv
+
+PublicKey:
+	forge test --match-contract PublicKeyTest -vvvv
