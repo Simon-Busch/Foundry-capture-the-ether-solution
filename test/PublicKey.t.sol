@@ -25,7 +25,7 @@ contract PublicKeyTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+        publicKeyChallenge.authenticate(abi.encodePacked(address(uint160(bytes20(0x92b28647Ae1F3264661f72fb2eB9625A89D88A31)))));
         /*****************
          *Level Submission*
          ***************  */
