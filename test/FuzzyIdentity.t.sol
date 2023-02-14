@@ -26,6 +26,15 @@ contract FuzzyIdentityTest is Test {
         /****************
          *    Attack     *
          *************** */
+        // bool foundKey = false;
+        // uint256 counter = 0;
+        // while(!foundKey) {
+        //   bytes memory base = "m/44'/60'/0'/0/";
+        //   address foundAddress = vm.deriveKey(abi.encodePacked(base, counter), counter);
+        //   if (foundAddress.includes("badc0de")) {
+
+        //   }
+        // }
         attacker.attack();
         /*****************
          *Level Submission*

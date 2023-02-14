@@ -10,7 +10,7 @@ contract FuzzyIdentityChallenge {
 
     function authenticate() public {
         require(isSmarx(msg.sender));
-        // require(isBadCode(msg.sender));
+        require(isBadCode(msg.sender));
 
         isComplete = true;
     }

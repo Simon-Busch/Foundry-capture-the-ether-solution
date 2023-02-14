@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.4.21;
+pragma solidity ^0.8.14;
 
 interface ITokenReceiver {
     function tokenFallback(address from, uint256 value, bytes data) external;
@@ -7,7 +7,7 @@ interface ITokenReceiver {
 
 contract SimpleERC223Token {
     // Track how many tokens are owned by each address.
-    mapping (address => uint256) public balanceOf;
+    mapping(address => uint256) public balanceOf;
 
     string public name = "Simple ERC223 Token";
     string public symbol = "SET";
@@ -17,7 +17,12 @@ contract SimpleERC223Token {
 
     event Transfer(address indexed from, address indexed to, uint256 value);
 
-    function SimpleERC223Token() public {
+    // function SimpleERC223Token() public {
+    //     balanceOf[msg.sender] = totalSupply;
+    //     emit Transfer(address(0), msg.sender, totalSupply);
+    // }
+
+    constructor() {
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender, totalSupply);
     }
@@ -36,7 +41,11 @@ contract SimpleERC223Token {
         return transfer(to, value, empty);
     }
 
-    function transfer(address to, uint256 value, bytes data) public returns (bool) {
+    function transfer(
+        address to,
+        uint256 value,
+        bytes calldata data
+    ) public returns (bool) {
         require(balanceOf[msg.sender] >= value);
 
         balanceOf[msg.sender] -= value;
@@ -49,23 +58,28 @@ contract SimpleERC223Token {
         return true;
     }
 
-    event Approval(address indexed owner, address indexed spender, uint256 value);
+    event Approval(
+        address indexed owner,
+        address indexed spender,
+        uint256 value
+    );
 
     mapping(address => mapping(address => uint256)) public allowance;
 
-    function approve(address spender, uint256 value)
-        public
-        returns (bool success)
-    {
+    function approve(
+        address spender,
+        uint256 value
+    ) public returns (bool success) {
         allowance[msg.sender][spender] = value;
         emit Approval(msg.sender, spender, value);
         return true;
     }
 
-    function transferFrom(address from, address to, uint256 value)
-        public
-        returns (bool success)
-    {
+    function transferFrom(
+        address from,
+        address to,
+        uint256 value
+    ) public returns (bool success) {
         require(value <= balanceOf[from]);
         require(value <= allowance[from][msg.sender]);
 
@@ -81,20 +95,29 @@ contract TokenBankChallenge {
     SimpleERC223Token public token;
     mapping(address => uint256) public balanceOf;
 
-    function TokenBankChallenge(address player) public {
+    // function TokenBankChallenge(address player) public {
+    //     token = new SimpleERC223Token();
+
+    //     // Divide up the 1,000,000 tokens, which are all initially assigned to
+    //     // the token contract's creator (this contract).
+    //     balanceOf[msg.sender] = 500000 * 10 ** 18; // half for me
+    //     balanceOf[player] = 500000 * 10 ** 18; // half for you
+    // }
+
+    constructor(address player) {
         token = new SimpleERC223Token();
 
         // Divide up the 1,000,000 tokens, which are all initially assigned to
         // the token contract's creator (this contract).
-        balanceOf[msg.sender] = 500000 * 10**18;  // half for me
-        balanceOf[player] = 500000 * 10**18;      // half for you
+        balanceOf[msg.sender] = 500000 * 10 ** 18; // half for me
+        balanceOf[player] = 500000 * 10 ** 18; // half for you
     }
 
     function isComplete() public view returns (bool) {
         return token.balanceOf(this) == 0;
     }
 
-    function tokenFallback(address from, uint256 value, bytes) public {
+    function tokenFallback(address from, uint256 value, /*bytes*/) public {
         require(msg.sender == address(token));
         require(balanceOf[from] + value >= balanceOf[from]);
 
