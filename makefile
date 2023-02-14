@@ -45,3 +45,9 @@ AccountTakeover:
 
 PublicKey:
 	forge test --match-contract PublicKeyTest -vvvv
+
+AssumeOwnership:
+	forge test --match-contract AssumeOwnershipTest -vvvv
+
+PublicKey:
+	forge test --match-contract PublicKeyTest -vvvv

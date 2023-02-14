@@ -23,9 +23,9 @@
 
 ## Accouts
 - [ ] Fuzzy identity
-- [ ] Public Key
+- [x] Public Key
 - [ ] Account Takeover
 
 ## Miscellaneaous
-- [ ] Assume ownership
+- [x] Assume ownership
 - [ ] Token bank
