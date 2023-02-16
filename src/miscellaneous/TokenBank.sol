@@ -2,7 +2,7 @@
 pragma solidity ^0.8.14;
 
 interface ITokenReceiver {
-    function tokenFallback(address from, uint256 value, bytes data) external;
+    function tokenFallback(address from, uint256 value, bytes calldata data) external;
 }
 
 contract SimpleERC223Token {
@@ -38,13 +38,13 @@ contract SimpleERC223Token {
 
     function transfer(address to, uint256 value) public returns (bool success) {
         bytes memory empty;
-        return transfer(to, value, empty);
+        return transferMe(to, value, empty);
     }
 
-    function transfer(
+    function transferMe(
         address to,
         uint256 value,
-        bytes calldata data
+        bytes memory data
     ) public returns (bool) {
         require(balanceOf[msg.sender] >= value);
 
@@ -114,10 +114,10 @@ contract TokenBankChallenge {
     }
 
     function isComplete() public view returns (bool) {
-        return token.balanceOf(this) == 0;
+        return token.balanceOf(address(this)) == 0;
     }
 
-    function tokenFallback(address from, uint256 value, /*bytes*/) public {
+    function tokenFallback(address from, uint256 value, bytes calldata bytesReceived) public {
         require(msg.sender == address(token));
         require(balanceOf[from] + value >= balanceOf[from]);
 

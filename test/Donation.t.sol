@@ -18,7 +18,7 @@ contract DonationTest is Test {
         /****************
          * Factory setup *
          *************** */
-        DonationChallenge donation = new DonationChallenge{value: 1 ether}();
+        DonationChallenge donation = new DonationChallenge();
         vm.startPrank(player);
         uint256 initialPlayerBalance = player.balance;
         assertEq(initialPlayerBalance, 5 ether);
@@ -26,7 +26,7 @@ contract DonationTest is Test {
         /****************
          *    Attack     *
          *************** */
-
+          // Can't work with new version of Solidity
         uint256 scale = 10 ** 18 * 1 ether;
         uint256 etherAmount = uint256(uint160(address(player)));
         console.log(donation.owner());

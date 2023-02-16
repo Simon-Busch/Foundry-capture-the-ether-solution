@@ -30,7 +30,7 @@ contract TokenBankTest is Test {
         /*****************
          *Level Submission*
          ***************  */
-        bool levelSuccessfullyPassed = tokenWhale.isComplete();
+        bool levelSuccessfullyPassed = tokenBank.isComplete();
         vm.stopPrank();
         assert(levelSuccessfullyPassed);
     }
